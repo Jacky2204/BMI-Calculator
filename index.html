@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calci</title>
+
+    <style>
+        body {
+            background-color: rgb(175, 232, 232);
+        }
+
+        h1 {
+            display: block;
+            color: #ff0000;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 900;
+            text-decoration: underline;
+        }
+
+        .main {
+            display: flex;
+            justify-content: space-between;
+            
+            margin: 8% auto;
+        }
+
+        .box1 {
+            height: 330px;
+            width: 350px;
+            border: 1px solid black;
+            margin-left: 100px;
+            background-color: rgb(248, 214, 221);
+        }
+
+        .box2 {
+
+            display: none;
+        }
+
+        .box3 {
+            margin-right: 100px;
+            display: block;
+
+        }
+
+        .error {
+            color: red;
+            font-weight: 800;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        p {
+            font-weight: 800;
+            font-size: larger;
+        }
+
+        .weight {
+            display: flex;
+            margin: 10px 20px;
+            align-items: center;
+        }
+
+        .height {
+            display: flex;
+            margin: 10px 20px;
+            align-items: center;
+        }
+
+        .btn {
+            display: flex;
+            margin: 20px;
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+    <h1>BMI Calculator</h1>
+    <div class="main">
+        <div class="box1">
+
+            <p class="error" id="err"> </p>
+
+            <div class="weight">
+                <p style="margin: 10px;">Weight:</p>
+                <input type="text" id="weight" placeholder="weight in kg" style="height: 30px;">
+                <p>kg</p>
+            </div>
+
+            <div class="height">
+                <p style="margin: 10px;">Height:</p>
+                <input type="text" id="height" placeholder="height in centimeter" style="height: 30px;">
+                <p>cm</p>
+            </div>
+
+            <div class="btn">
+                <button
+                    style="margin: auto; display:block; height:30px; width:120px;background-color:rgb(239, 153, 168); font-weight:900;"
+                    onclick="bmi()">Calculate</button>
+
+
+                <button
+                    style="margin: auto; display:block; height:30px; width:120px;background-color:rgb(239, 153, 168); font-weight:900;"
+                    onclick="reset()">Reset</button>
+            </div>
+
+            <p id="bmi" style="display: block; text-align:center; margin:20px; font-weight:bold">BMI =</p>
+        </div>
+
+        <div class="box2" id="image">
+            <img src=".." alt="" id="img" height="350" width="375px" class="image">
+        </div>
+    </div>
+
+    <script>
+
+        function bmi() {
+            let w = document.getElementById("weight").value
+            let h = document.getElementById("height").value
+
+            let m = h * (1 / 100);
+
+            let x = w / (m * m);
+            let bmi = x.toFixed(2)
+
+            if (bmi <= 18.4) {
+                document.getElementById("bmi").innerText = `BMI = ${bmi} (underWeight)`
+
+                document.getElementById("image").classList.add("box3")
+                document.getElementById("img").src = "./thin.png"
+
+            }
+            else if (bmi > 18.5 && bmi < 24.9) {
+                document.getElementById("bmi").innerText = `BMI = ${bmi} (normal)`
+
+                document.getElementById("image").classList.add("box3")
+                document.getElementById("img").src = "./normal.png"
+            }
+            else if (bmi > 25) {
+                document.getElementById("bmi").innerText = `BMI = ${bmi} (overweight)`
+
+                document.getElementById("image").classList.add("box3")
+                document.getElementById("img").src = "./fatty.png"
+            }
+            else {
+                document.getElementById("err").innerText = `Enter Height and Weight`
+            }
+
+
+
+        }
+
+        function reset() {
+
+            document.getElementById("weight").value = ` `
+            document.getElementById("height").value = ` `
+            document.getElementById("bmi").innerText = `BMI = `
+            document.getElementById("err").innerText = ` `
+        }
+
+    </script>
+
+
+</body>
+
+</html>
